@@ -22,7 +22,7 @@ program.action((file, options) => {
   const { format, output } = options;
 
   // check file
-  if (!fs.existsSync(path)) console.log("Log file not found!");
+  if (!fs.existsSync(file)) console.log("Log file not found!");
 
   // read file
   const fileBuffer = fs.readFileSync(file);
@@ -35,6 +35,7 @@ program.action((file, options) => {
       `log-${new Date().getTime()}.${format === "json" ? "json" : "txt"}`
     );
   fs.writeFileSync(outputPath, fileContent);
+  console.log("Log saved to", outputPath);
 });
 
 program.parse(process.argv);
