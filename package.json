@@ -1,0 +1,14 @@
+{
+  "name": "logextracktor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "commander": "^7.2.0"
+  },
+  "preferGlobal": true,
+  "bin": "./index.js"
+}
