@@ -5,28 +5,36 @@ const program = require("commander");
 
 program.version("1.0.0").description("Log extractor");
 
-program
-  .usage("<file> [options]")
-  .arguments("<file>")
-  .option(
-    "-t, --format <format>",
-    "Define output file format text or json",
-    "text"
-  )
-  .option("-o, --output [filepath]", "Define output file location")
-  .action((file, options) => {
-    const { format, output } = options;
+program.usage("<file> [options]");
 
-    const fileBuffer = fs.readFileSync(file);
-    const fileContent = Buffer.from(fileBuffer).toString();
+program.arguments("<file>");
 
-    const outputPath =
-      output ||
-      path.resolve(
-        `log-${new Date().getTime()}.${format === "json" ? "json" : "txt"}`
-      );
+program.option(
+  "-t, --format <format>",
+  "Specify output file format text or json",
+  "text"
+);
 
-    fs.writeFileSync(outputPath, fileContent);
-  });
+program.option("-o, --output [filepath]", "Specify output file location");
+
+program.action((file, options) => {
+  // parsing options data
+  const { format, output } = options;
+
+  // check file
+  if (!fs.existsSync(path)) console.log("Log file not found!");
+
+  // read file
+  const fileBuffer = fs.readFileSync(file);
+  const fileContent = Buffer.from(fileBuffer).toString();
+
+  // save
+  const outputPath =
+    output ||
+    path.resolve(
+      `log-${new Date().getTime()}.${format === "json" ? "json" : "txt"}`
+    );
+  fs.writeFileSync(outputPath, fileContent);
+});
 
 program.parse(process.argv);
